@@ -45,7 +45,7 @@ export default {
       if (res.meta.status === 200) {
         this.rightsList = res.data
         this.$message.success('获取权限列表成功')
-        console.log(this.rightsList)
+        // console.log(this.rightsList)
       } else {
         this.$message.error('获取权限列表失败')
       }

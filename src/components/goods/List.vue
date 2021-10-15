@@ -50,7 +50,7 @@
           ></el-table-column>
           <el-table-column width="220px" label="创建时间">
             <template v-slot="scope">
-              {{ scope.row.add_time | dataFormat }}
+              {{ getTime(scope.row.add_time) }}
             </template>
           </el-table-column>
           <el-table-column label="操作" width="150px">
@@ -147,6 +147,10 @@ export default {
     },
     goAddpage() {
       this.$router.push('goods/add')
+    },
+    getTime(time) {
+      time = new Date(time)
+      return time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate() + ' ' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds()
     }
   }
 }

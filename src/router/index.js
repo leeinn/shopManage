@@ -53,11 +53,11 @@ const routes = [
       },
       {
         path: '/goods',
-        component: GoodsList,
-        children: [{
-          path: 'add',
-          component: Add
-        }]
+        component: GoodsList
+      },
+      {
+        path: '/goods/add',
+        component: Add
       }
     ]
   }

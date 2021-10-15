@@ -137,7 +137,6 @@
 
 <script>
 import _ from 'lodash'
-import { goodsAddFormRulesMixin } from '@/common/mixin.js'
 export default {
   name: 'Add',
   data() {
@@ -280,7 +279,9 @@ export default {
           return this.$message.error('请填写必要的表单项')
         }
         // 执行添加的业务逻辑
+        // 为了保证 和标签组件绑定的数据一致 需要深拷贝一份
         const form = _.cloneDeep(this.addForm)
+        console.log(form, this.addForm)
         form.goods_cat = form.goods_cat.join(',')
         // 处理动态参数
         this.manyTableData.forEach(item => {
@@ -293,9 +294,6 @@ export default {
           this.addForm.attrs.push(newInfo)
         })
         form.attrs = this.addForm.attrs
-        // console.log(form)
-        // 发起请求添加商品数据
-        // 商品的名称必须是唯一的
         const { data: res } = await this.$http.post('goods', form)
         console.log(res)
         if (res.meta.status !== 201) {

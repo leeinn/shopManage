@@ -15,13 +15,27 @@ import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
+// 导入 NProgress 对应的js和css
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 axios.defaults.baseURL = 'https://lianghj.top:8888/api/private/v1/'
 axios.interceptors.request.use(config => {
+  // 每次调用 API 时都要验证请求头是否有token 登陆时存入session
   config.headers.Authorization = window.sessionStorage.getItem('token')
+  // request 拦截器中 展示进度条
+  NProgress.start()
+  // 最后必须return config
   return config
 })
+axios.interceptors.response.use(config => {
+  // response 拦截器中 隐藏进度条
+  NProgress.done()
+  return config
+})
+
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
 Vue.use(VueQuillEditor)
